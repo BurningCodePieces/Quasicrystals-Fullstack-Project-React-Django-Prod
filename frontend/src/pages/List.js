@@ -50,7 +50,7 @@ export class List extends Component {
                                         <td className="text-light">{structure.created_at}</td>
                                         <td className="text-light"><Link to={`/structure/${structure.id}`}><button className="btn btn-primary">See details</button></Link> </td>
                                     </tr>
-                                    : "")
+                                    : null)
                             ))}
                         </tbody>
                     </table>
