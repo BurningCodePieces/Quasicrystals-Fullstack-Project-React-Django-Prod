@@ -3,9 +3,7 @@ import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink, NavMenuNonAuth} from '.
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import agh_ust_dark from '../../images/agh-ust-dark-white.png';
-//<NavBtn>
-//<NavBtnLink to="/signup">Sign Up</NavBtnLink>
-//</NavBtn>
+
 const Navbar = ({logout, isAuthenticated, user}) => {
     const guestLinks = () =>(
             <NavMenuNonAuth>

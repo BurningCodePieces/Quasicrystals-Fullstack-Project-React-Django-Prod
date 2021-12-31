@@ -27,7 +27,7 @@ export class List extends Component {
         if(!this.props.structures) return null;
         return (
             <Fragment>
-                <div className='container'>
+                <div className='container mb-5 pb-5'>
                     {this.props.showStructuresOfAllUsers ? <h2 className='my-5'>List of verified quasicrystal structures:</h2> : <h2 className='my-5'>List of quasicrystal structures added by you:</h2>}
                     <table className="table table-striped text-light text-center border">
                         <thead>

@@ -12,7 +12,6 @@ const Layout = (props) => {
         props.load_user();
     }, []
     );
-    /*<GlobalStyleBackground />*/
     return(
     <div>
         <Navbar/>
