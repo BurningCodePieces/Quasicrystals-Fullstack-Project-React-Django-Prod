@@ -32,7 +32,7 @@ const Navbar = ({logout, isAuthenticated, user}) => {
                     <NavLink to="/theory">About</NavLink>
                     <NavLink to="/list">List of structures</NavLink>
                     <NavLink to="/contact">Contact</NavLink>
-                    {isAuthenticated ? (<NavLink to="/addstructure">New structure</NavLink>) : (<NavLink to="/signup">Sign Up</NavLink>)}
+                    {isAuthenticated ? (<NavLink to="/add_structure">New structure</NavLink>) : (<NavLink to="/signup">Sign Up</NavLink>)}
                     {user ? ( user.is_staff ? <NavLink to="/my_account">Admin panel</NavLink> : <NavLink to="/my_account">My account</NavLink>): <span></span>}
                 </NavMenu>
                 {isAuthenticated ? authLinks() : guestLinks()}

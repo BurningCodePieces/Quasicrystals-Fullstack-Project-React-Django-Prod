@@ -26,7 +26,7 @@ const UserAccount = ({user,logout}) => {
             <br/>
             <Link className="btn btn-dark mt-3" type="button" to='/reset_password'>Change password</Link>
             <br/>
-            <Link className="btn btn-success mt-3" type="button" to="/addstructure">Add new structure</Link>
+            <Link className="btn btn-success mt-3" type="button" to="/add_structure">Add new structure</Link>
             <br/>
             <Link className="btn btn-primary mt-3" type="button" to='/' onClick={logout}>Log me out</Link>
         </h3>

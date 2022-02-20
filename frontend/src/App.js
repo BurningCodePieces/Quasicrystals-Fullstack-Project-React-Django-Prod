@@ -27,7 +27,7 @@ import AddStructure from './pages/AddStructure';
 
 //alert Options
 const alertOptions = {
-  timeout:5000,
+  timeout: 5000,
   position: 'bottom center',
   transition: 'fade',
   offset: '-30px 0 60px 0'
@@ -36,30 +36,29 @@ const alertOptions = {
 function App() {
   return (
     <Provider store={store}>
-          <AlertProvider template={AlertTemplate} {...alertOptions}>
-    <Router>
-      <Layout>
-      <Switch>
-        <Route path="/" exact component={Home}></Route> 
-        <Route path="/contact" exact component={Contact}></Route>
-        <Route path="/theory" exact component={Theory}></Route>
-        <Route path="/list" exact render={(props) => <List {...props} showStructuresOfAllUsers={true} />}></Route>
-        <Route path="/login" exact component={Login}></Route>
-        <Route path="/signup" exact component={Signup}></Route>
-        <PrivateRoute path="/my_account" exact component={UserAccount}></PrivateRoute>
-        <PrivateRoute path="/my_structures" exact component={List}></PrivateRoute>
-        <Route path="/structure/:id" exact component={StructureDetails}></Route>
-        <AdminRoute path="/waiting_structures" exact component={StructuresToBeVerified}></AdminRoute>
-        <AdminRoute path="/users_list" exact component={UsersList}></AdminRoute>
-        <PrivateRoute path="/addstructure" exact component={AddStructure}></PrivateRoute>
-        <Route path="/reset_password" exact component={ResetPassword}></Route>
-        <Route path="/password/reset/confirm/:uid/:token" exact component={ResetPasswordConfirm}></Route>
-        <Route path="/activate/:uid/:token" exact component={Activate}></Route>
-
-      </Switch>
-      </Layout>
-    </Router>
-    </AlertProvider>
+      <AlertProvider template={AlertTemplate} {...alertOptions}>
+        <Router>
+          <Layout>
+            <Switch>
+              <Route path="/" exact component={Home}></Route>
+              <Route path="/contact" exact component={Contact}></Route>
+              <Route path="/theory" exact component={Theory}></Route>
+              <Route path="/list" exact render={(props) => <List {...props} showStructuresOfAllUsers={true} />}></Route>
+              <Route path="/login" exact component={Login}></Route>
+              <Route path="/signup" exact component={Signup}></Route>
+              <PrivateRoute path="/my_account" exact component={UserAccount}></PrivateRoute>
+              <PrivateRoute path="/my_structures" exact component={List}></PrivateRoute>
+              <Route path="/structure/:id" exact component={StructureDetails}></Route>
+              <AdminRoute path="/waiting_structures" exact component={StructuresToBeVerified}></AdminRoute>
+              <AdminRoute path="/users_list" exact component={UsersList}></AdminRoute>
+              <PrivateRoute path="/add_structure" exact component={AddStructure}></PrivateRoute>
+              <Route path="/reset_password" exact component={ResetPassword}></Route>
+              <Route path="/password/reset/confirm/:uid/:token" exact component={ResetPasswordConfirm}></Route>
+              <Route path="/activate/:uid/:token" exact component={Activate}></Route>
+            </Switch>
+          </Layout>
+        </Router>
+      </AlertProvider>
     </Provider>
   );
 }

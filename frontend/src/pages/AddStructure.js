@@ -243,11 +243,12 @@ const AddStructure = ({ isAuthenticated, user, addStructure }) => {
     }
     let decimalChangeBigNumbers = e => {
         let val = e.target.value;
+        let returnValue = (val[0]==="-") ? "-" : "";
         val = val.replace(/([^0-9.]+)/, "");
         val = val.replace(/^(00|\.)/, "0");
         const match = /(\d{0,7})[^.]*((?:\.\d{0,6})?)/g.exec(val);
-        const value = match[1] + match[2];
-        e.target.value = value;
+        returnValue += match[1] + match[2];
+        e.target.value = returnValue;
     }
 
     let lastTimeRangeMessageShown = performance.now()

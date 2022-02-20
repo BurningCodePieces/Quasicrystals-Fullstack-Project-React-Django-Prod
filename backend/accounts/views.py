@@ -13,6 +13,8 @@ def update_user_role_by_email(request, email):
     try:
         user = UserAccount.objects.get(email=email)
         serializer = CurrentUserSerializer(user,many=False)
+        if user.is_superuser:
+            return Response("Chosen user is a superuser. Superusers cannot be degraded to an ordinary users.", status=400)
         user.is_staff = not user.is_staff
         user.save()
         return Response(serializer.data)
