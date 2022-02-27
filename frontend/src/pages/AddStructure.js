@@ -131,75 +131,78 @@ const AddStructure = ({ isAuthenticated, user, addStructure }) => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        let controlSum = 0.0;
-        let controlSum2 = 0.0;
-        Object.keys(elements).map((key, index) => (
-            controlSum += Number(elements[key])
-        ))
-        Object.keys(elementsRefined).map((key, index) => (
-            controlSum2 += Number(elementsRefined[key])
-        ))
-        if (controlSum !== 100.0) {
-            dispatch(createMessage({ sum_of_percents_formula_need_to_be_equal_100: "Sum of the percents in chemical formula must be equal 100." }))
-        }
-        else if (controlSum2 !== 100.0 && Object.keys(elementsRefined).length != 0) {
-            dispatch(createMessage({ sum_of_percents_formula_need_to_be_equal_100: "Sum of the percents in refined chemical formula must be equal 100." }))
-        }
-        else {
-            var crystalId = ""
-            switch (quasiType) {
-                case "icoshaedral":
-                    crystalId += "I"
-                    break;
-                case "decagonal":
-                    crystalId += "D"
-                    break;
-                case "octagonal":
-                    crystalId += "O"
-                    break;
-                case "dodecagonal":
-                    crystalId += "Dd"
-                    break;
+        {
+            console.log(e)
+            let controlSum = 0.0;
+            let controlSum2 = 0.0;
+            Object.keys(elements).map((key, index) => (
+                controlSum += Number(elements[key])
+            ))
+            Object.keys(elementsRefined).map((key, index) => (
+                controlSum2 += Number(elementsRefined[key])
+            ))
+            if (controlSum !== 100.0) {
+                dispatch(createMessage({ sum_of_percents_formula_need_to_be_equal_100: "Sum of the percents in chemical formula must be equal 100." }))
             }
-            if (quasiType == "icoshaedral") {
-                switch (clusterType) {
-                    case "Mackay":
-                        crystalId += "M"
+            else if (controlSum2 !== 100.0 && Object.keys(elementsRefined).length != 0) {
+                dispatch(createMessage({ sum_of_percents_formula_need_to_be_equal_100: "Sum of the percents in refined chemical formula must be equal 100." }))
+            }
+            else {
+                var crystalId = ""
+                switch (quasiType) {
+                    case "icoshaedral":
+                        crystalId += "I"
                         break;
-                    case "Bergman":
-                        crystalId += "B"
+                    case "decagonal":
+                        crystalId += "D"
                         break;
-                    case "Tsai":
-                        crystalId += "T"
+                    case "octagonal":
+                        crystalId += "O"
+                        break;
+                    case "dodecagonal":
+                        crystalId += "Dd"
                         break;
                 }
-                if (centeringType == "P")
+                if (quasiType == "icoshaedral") {
+                    switch (clusterType) {
+                        case "Mackay":
+                            crystalId += "M"
+                            break;
+                        case "Bergman":
+                            crystalId += "B"
+                            break;
+                        case "Tsai":
+                            crystalId += "T"
+                            break;
+                    }
+                    if (centeringType == "P")
+                        crystalId += "P"
+                    if (centeringType == "F")
+                        crystalId += "F"
+                }
+                else
                     crystalId += "P"
-                if (centeringType == "F")
-                    crystalId += "F"
-            }
-            else
-                crystalId += "P"
 
-            let structureInfo = {
-                "crystal_id": crystalId, "chemical_formula": currentChemicalFormula, "refined_formula": currentChemicalFormulaRefined, "distance_in_periodic_direction": distanceInPeriodicDirection,
-                "edge_length": edgeLength, "phasson_coefficient": phassonCoeff, "residual_electron_density": residualElectronDensity,
-                "point_density": pointDensity, "number_of_electrons_per_atom": electronsPerAtom, "authors": authors,
-                "title_of_publication": titleOfPublication, "journal_of_publication": journalOfPublication,
-                "journal_volume": journalVolume, "jounal_issue": journalIssue,
-                "start_page_or_page_range": pagesOfArticle, "url_to_article": urlToArticle,
-                "diffraction_temperature": diffractionTemperature, "radiation_type": radiationType,
-                "diffraction_radiation_wavelength": diffractionRadiationWavelength, "rInt": rInt,
-                "r1_sigma": r1sigma, "r3_sigma": r3sigma, "wR1_sigma": wr1sigma, "wR3_sigma": wr3sigma, "r_factor_value": rFactorValue,
-                "quasi_type": quasiType, "cluster_type": clusterType, "centering_type": centeringType, "five_dimensional_space_group": fiveDimensionalSpaceGroup
+                let structureInfo = {
+                    "crystal_id": crystalId, "chemical_formula": currentChemicalFormula, "refined_formula": currentChemicalFormulaRefined, "distance_in_periodic_direction": distanceInPeriodicDirection,
+                    "edge_length": edgeLength, "phasson_coefficient": phassonCoeff, "residual_electron_density": residualElectronDensity,
+                    "point_density": pointDensity, "number_of_electrons_per_atom": electronsPerAtom, "authors": authors,
+                    "title_of_publication": titleOfPublication, "journal_of_publication": journalOfPublication,
+                    "journal_volume": journalVolume, "jounal_issue": journalIssue,
+                    "start_page_or_page_range": pagesOfArticle, "url_to_article": urlToArticle,
+                    "diffraction_temperature": diffractionTemperature, "radiation_type": radiationType,
+                    "diffraction_radiation_wavelength": diffractionRadiationWavelength, "rInt": rInt,
+                    "r1_sigma": r1sigma, "r3_sigma": r3sigma, "wR1_sigma": wr1sigma, "wR3_sigma": wr3sigma, "r_factor_value": rFactorValue,
+                    "quasi_type": quasiType, "cluster_type": clusterType, "centering_type": centeringType, "five_dimensional_space_group": fiveDimensionalSpaceGroup
+                }
+                if (yearOfPublication) { structureInfo["year_of_publication"] = yearOfPublication };
+                if (numberOfObservedReflections) { structureInfo["number_of_observed_reflections"] = numberOfObservedReflections };
+                if (numberOfUniqueReflections) { structureInfo["number_of_unique_reflections"] = numberOfUniqueReflections };
+                if (numberOfReflections1sigma) { structureInfo["number_of_reflections_1_sigma"] = numberOfReflections1sigma };
+                if (numberOfReflections3sigma) { structureInfo["number_of_reflections_3_sigma"] = numberOfReflections3sigma };
+                if (numberOfParameters) { structureInfo["number_of_parameters"] = numberOfParameters }
+                addStructure(structureInfo);
             }
-            if (yearOfPublication) { structureInfo["year_of_publication"] = yearOfPublication };
-            if (numberOfObservedReflections) { structureInfo["number_of_observed_reflections"] = numberOfObservedReflections };
-            if (numberOfUniqueReflections) { structureInfo["number_of_unique_reflections"] = numberOfUniqueReflections };
-            if (numberOfReflections1sigma) { structureInfo["number_of_reflections_1_sigma"] = numberOfReflections1sigma };
-            if (numberOfReflections3sigma) { structureInfo["number_of_reflections_3_sigma"] = numberOfReflections3sigma };
-            if (numberOfParameters) { structureInfo["number_of_parameters"] = numberOfParameters }
-            addStructure(structureInfo);
         }
     };
 
@@ -350,7 +353,7 @@ const AddStructure = ({ isAuthenticated, user, addStructure }) => {
                     <div className="StructureData mb-5">
                         <h4 className="mt-5"> You can add any number of elements that the structure has.</h4>
                         {Object.keys(elements).map((key, index) => (
-                            <p key={index}> <strong>{key}</strong> : <strong>{elements[key]}</strong>% in structure <button className="btn btn-danger" onClick={e => { let copyCarValues = { ...elementsInStructure.elements }; delete copyCarValues[key]; setElementsInStructure({ ...elementsInStructure, elements: copyCarValues }); currentChemicalFormulaTemp = parseElementsToString(elements); setFormData({ ...formData, currentChemicalFormula: currentChemicalFormulaTemp }) }}>DELETE</button> </p>
+                            <p key={index}> <strong>{key}</strong> : <strong>{elements[key]}</strong>% in structure <button type="button" className="btn btn-danger" onClick={e => { let copyCarValues = { ...elementsInStructure.elements }; delete copyCarValues[key]; setElementsInStructure({ ...elementsInStructure, elements: copyCarValues }); currentChemicalFormulaTemp = parseElementsToString(elements); setFormData({ ...formData, currentChemicalFormula: currentChemicalFormulaTemp }) }}>DELETE</button> </p>
                         ))}
                         <div> {currentChemicalFormula ? "Current structure formula:" : ""}  {outputElementsString(currentChemicalFormula)} </div>
                         <button type="button" id="addElementButton" className="btn btn-primary mt-3" onClick={e => setElementsVisibilityData({ ...elementsVisibilityData, addingNewElementEnabled: !elementsVisibilityData.addingNewElementEnabled })}>Add element</button>
@@ -472,7 +475,7 @@ const AddStructure = ({ isAuthenticated, user, addStructure }) => {
                     <div className="mb-5 w-100">
                         <h4> You can add any number of elements that the structure has.</h4>
                         {Object.keys(elementsRefined).map((key, index) => (
-                            <p key={index}> <strong>{key}</strong> : <strong>{elementsRefined[key]}</strong>% in structure <button className="btn btn-danger" onClick={e => { let copyCarValues = { ...elementsInRefinedStructure.elementsRefined }; delete copyCarValues[key]; setElementsInRefinedStructure({ ...elementsInRefinedStructure, elementsRefined: copyCarValues }); currentChemicalFormulaRefinedTemp = parseElementsToString(elementsRefined); setFormData({ ...formData, currentChemicalFormulaRefined: currentChemicalFormulaRefinedTemp }) }}>DELETE</button> </p>
+                            <p key={index}> <strong>{key}</strong> : <strong>{elementsRefined[key]}</strong>% in structure <button type="button" className="btn btn-danger" onClick={e => { let copyCarValues = { ...elementsInRefinedStructure.elementsRefined }; delete copyCarValues[key]; setElementsInRefinedStructure({ ...elementsInRefinedStructure, elementsRefined: copyCarValues }); currentChemicalFormulaRefinedTemp = parseElementsToString(elementsRefined); setFormData({ ...formData, currentChemicalFormulaRefined: currentChemicalFormulaRefinedTemp }) }}>DELETE</button> </p>
                         ))}
                         <div> {currentChemicalFormulaRefined ? "Current structure formula:" : ""}  {outputElementsString(currentChemicalFormulaRefined)} </div>
                         <button type="button" className="btn btn-primary mt-3" onClick={e => setElementsVisibilityData({ ...elementsVisibilityData, addingNewElementRefinedEnabled: !elementsVisibilityData.addingNewElementRefinedEnabled })}>Add element</button>
